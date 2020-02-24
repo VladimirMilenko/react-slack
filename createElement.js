@@ -25,13 +25,35 @@ export class Text extends Child {
   }
 }
 
+class Datepicker extends Child {
+  constructor(props, root) {
+    super(props, root, "DATEPICKER");
+
+    this.onChange = null;
+    this.value = props.value || undefined;
+    this.placeholder = props.placeholder;
+    this.initialDate = props.initialDate || undefined;
+  }
+
+  render() {
+    const { value, placeholder, initialDate, __actionId } = this;
+
+    return {
+      type: "datepicker",
+      placeholder: placeholder ? new Text(this.placeholder).render() : undefined,
+      action_id: this.__actionId,
+      initial_date: value ? value : initialDate ? initialDate : undefined
+    };
+  }
+}
+
 class Button extends Child {
   constructor(props, root) {
     super(props, root, "BUTTON");
 
     this.children = [];
 
-    this.onClick = null;
+    this.onClick = props.onClick;
   }
   appendChild(child) {
     if (child.__type === "TEXT") {
@@ -53,7 +75,7 @@ class Button extends Child {
   }
 
   render() {
-    const { style, value, confirm } = this.props;
+    const { style, value, confirm } = this;
 
     return {
       type: "button",
@@ -192,7 +214,7 @@ class Section extends Child {
       case "SECTION_FIELDS":
         this.fields = child;
         break;
-      case 'SECTION_ACCESSORY':
+      case "SECTION_ACCESSORY":
         this.accessory = child;
         break;
       default:
@@ -224,7 +246,7 @@ class Section extends Child {
       type: "section",
       text: this.text ? this.text.render() : undefined,
       fields: this.fields ? this.fields.render() : undefined,
-      accessory: this.accessory ? this.accessory.render() : undefined,
+      accessory: this.accessory ? this.accessory.render() : undefined
     };
   }
 }
@@ -257,7 +279,7 @@ class SectionText extends Child {
       text: this.children
         .map(x => x.render())
         .map(x => x.text)
-        .join(""),
+        .join("")
     };
   };
 }
@@ -308,10 +330,10 @@ class SectionAccessory extends Child {
     }
   }
   render = () => {
-    if(this.children.length > 1) {
-      throw new Error('Accessory only accepts one child');
+    if (this.children.length > 1) {
+      throw new Error("Accessory only accepts one child");
     }
-    if(!this.children || this.children.length === 0) {
+    if (!this.children || this.children.length === 0) {
       return null;
     }
     return this.children[0].render();
@@ -329,6 +351,7 @@ export const createElement = (type, props, rootContainerInstance) => {
     SECTION_TEXT: () => new SectionText(props, rootContainerInstance),
     SECTION_FIELDS: () => new SectionFields(props, rootContainerInstance),
     SECTION_ACCESSORY: () => new SectionAccessory(props, rootContainerInstance),
+    DATEPICKER: () => new Datepicker(props, rootContainerInstance)
   };
 
   return LIB[type]();

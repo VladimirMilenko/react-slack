@@ -7,3 +7,4 @@ export const Section = "SECTION";
 export const SectionText = "SECTION_TEXT";
 export const SectionFields = "SECTION_FIELDS";
 export const SectionAccessory = "SECTION_ACCESSORY";
+export const DatePicker = "DATEPICKER";
