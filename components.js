@@ -1,0 +1,9 @@
+export const Button = "BUTTON";
+export const Actions = "ACTIONS";
+export const Context = "CONTEXT";
+export const Markdown = "MARKDOWN";
+export const Divider = "DIVIDER";
+export const Section = "SECTION";
+export const SectionText = "SECTION_TEXT";
+export const SectionFields = "SECTION_FIELDS";
+export const SectionAccessory = "SECTION_ACCESSORY";
