@@ -213,7 +213,7 @@ const hostConfig = {
           hostNode[key] = update[key];
         });
     }
-    setImmediate(() => {
+    setTimeout(() => {
       hostNode.onCommit();
     }, 0);
   },
@@ -224,7 +224,7 @@ const hostConfig = {
 
   commitTextUpdate(textInstance, oldText, newText) {
     textInstance.setText(newText);
-    setImmediate(() => {
+    setTimeout(() => {
       textInstance.onCommit();
     }, 0);
   },

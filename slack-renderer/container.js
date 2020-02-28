@@ -35,7 +35,7 @@ export class SlackContainer {
   appendChild = child => {
     this.blocks.push(child);
 
-    setImmediate(this.onCommited, 0);
+    setTimeout(this.onCommited, 0);
   };
 
   removeChild = child => {
@@ -43,14 +43,14 @@ export class SlackContainer {
 
     this.blocks.splice(index, 1);
 
-    setImmediate(this.onCommited, 0);
+    setTimeout(this.onCommited, 0);
   };
 
   insertBefore = (child, beforeChild) => {
     const index = this.blocks.indexOf(beforeChild);
 
     this.blocks.splice(index, 0, child);
-    setImmediate(this.onCommited, 0);
+    setTimeout(this.onCommited, 0);
   };
 
   onCommited = () => {
