@@ -1,4 +1,4 @@
-import { Button, Actions, Context, Markdown, Divider, Section, SectionText, SectionFields, SectionAccessory, Datepicker } from '../slack-components';
+import { Button, Actions, Context, Markdown, Divider, Section, SectionText, SectionFields, SectionAccessory, Datepicker } from '../slack-components/index';
 export const createElement = (type, props, rootContainerInstance) => {
   const LIB = {
     BUTTON: () => new Button(props, rootContainerInstance),

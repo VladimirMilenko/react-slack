@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isEqual } from 'lodash-es';
 
 export class SlackContainer {
   constructor(subClient, handlerRegistry, response_url, stateful) {
@@ -55,7 +55,7 @@ export class SlackContainer {
 
   onCommited = () => {
     const nextCommit = this.render();
-    if (!_.isEqual(this.lastCommited, nextCommit)) {
+    if (!isEqual(this.lastCommited, nextCommit)) {
       this.stateful && this.emitter.emit("commit", nextCommit);
       this.lastCommited = nextCommit;
     }

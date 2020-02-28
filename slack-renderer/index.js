@@ -1,6 +1,6 @@
 import ReactReconciler from "react-reconciler";
 import { createElement } from "./createElement";
-import { Text } from '../slack-components';
+import { Text } from '../slack-components/index';
 import uuid from "uuid/v4";
 import { Button, DatePicker } from "./components";
 

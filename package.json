@@ -4,9 +4,14 @@
     "main": "app.js",
     "license": "MIT",
     "dependencies": {
+        "@rollup/plugin-commonjs": "^11.0.2",
+        "@rollup/plugin-node-resolve": "^7.1.1",
         "lodash": "4.17.15",
+        "lodash-es": "^4.17.15",
         "react": "^16.12.0",
         "react-reconciler": "^0.24.0",
+        "rollup": "^1.32.0",
+        "rollup-plugin-node-resolve": "^5.2.0",
         "uuid": "^3.4.0"
     },
     "devDependencies": {
@@ -14,15 +19,16 @@
         "@babel/plugin-proposal-export-default-from": "^7.8.3",
         "@babel/preset-react": "^7.8.3",
         "babel-plugin-transform-class-properties": "^6.24.1",
-        "microbundle": "^0.11.0",
         "parcel": "^1.12.4",
-        "react-devtools": "^4.4.0"
+        "react-devtools": "^4.4.0",
+        "rollup-plugin-babel": "^4.3.3"
     },
     "scripts": {
         "start:browser": "parcel index.html",
         "start:node": "parcel --target node app.js",
         "build": "yarn build:node && yarn build:browser",
         "build:node": "parcel build -d build/node --target node app.js",
-        "build:browser": "microbundle build -d build/browser --target browser app.js"
-    }
+        "build:browser": "rollup -c"
+    },
+    "source": "./app.js"
 }
