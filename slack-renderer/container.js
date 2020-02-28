@@ -2,33 +2,35 @@ import EventEmitter from "events";
 import _ from 'lodash';
 
 export class SlackContainer {
-  constructor(subClient, handlerRegistry, response_url) {
+  constructor(subClient, handlerRegistry, response_url, stateful) {
     this.handlerRegistry = handlerRegistry;
     this.subClient = subClient;
+    this.stateful = stateful;
 
     this.blocks = [];
+    if (this.stateful) {
+      this.emitter = new EventEmitter();
+      this.response_url = response_url;
 
-    this.emitter = new EventEmitter();
-    this.response_url = response_url;
+      this.subClient.on("message", (channel, message) => {
+        if (this.handlerRegistry[channel]) {
+          const msg = JSON.parse(message);
+          this.response_url = msg.response_url;
 
-    this.subClient.on("message", (channel, message) => {
-      if (this.handlerRegistry[channel]) {
-        const msg = JSON.parse(message);
-        this.response_url = msg.response_url;
+          this.handlerRegistry[channel](msg);
+        }
+      });
 
-        this.handlerRegistry[channel](msg);
-      }
-    });
-
-    this.lastCommited = null;
+      this.lastCommited = null;
+    }
   }
 
   unsubscribeFromAction = uuid => {
-    this.subClient.unsubscribe(uuid);
+    this.stateful && this.subClient.unsubscribe(uuid);
   };
 
   subscribeToNewActionId = uuid => {
-    this.subClient.subscribe(uuid);
+    this.stateful && this.subClient.subscribe(uuid);
   };
 
   appendChild = child => {
@@ -55,7 +57,7 @@ export class SlackContainer {
   onCommited = () => {
     const nextCommit = this.render();
     if (!_.isEqual(this.lastCommited, nextCommit)) {
-      this.emitter.emit("commit", nextCommit);
+      this.stateful && this.emitter.emit("commit", nextCommit);
       this.lastCommited = nextCommit;
     }
   };
