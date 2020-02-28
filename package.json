@@ -6,6 +6,7 @@
     "dependencies": {
         "@rollup/plugin-commonjs": "^11.0.2",
         "@rollup/plugin-node-resolve": "^7.1.1",
+        "@rollup/plugin-replace": "^2.3.1",
         "lodash": "4.17.15",
         "lodash-es": "^4.17.15",
         "react": "^16.12.0",
@@ -21,14 +22,15 @@
         "babel-plugin-transform-class-properties": "^6.24.1",
         "parcel": "^1.12.4",
         "react-devtools": "^4.4.0",
-        "rollup-plugin-babel": "^4.3.3"
+        "rollup-plugin-babel": "^4.3.3",
+        "rollup-plugin-node-globals": "^1.4.0"
     },
     "scripts": {
         "start:browser": "parcel index.html",
         "start:node": "parcel --target node app.js",
         "build": "yarn build:node && yarn build:browser",
         "build:node": "parcel build -d build/node --target node app.js",
-        "build:browser": "rollup -c"
+        "build:browser": "parcel build -d build/browser --target browser app.js"
     },
     "source": "./app.js"
 }
