@@ -1,6 +1,8 @@
 import ReactReconciler from "react-reconciler";
-import { createElement, Text } from "./createElement";
+import { createElement } from "./createElement";
+import { Text } from '../slack-components';
 import uuid from "uuid/v4";
+import { Button, DatePicker } from "./components";
 
 const rootHostContext = {};
 const childHostContext = {};
@@ -17,12 +19,12 @@ const hostConfig = {
   },
 
   getPublicInstance(instance) {
-    console.log("getPublicInstance");
+    return {};
   },
 
-  prepareForCommit(containerInfo) {},
+  prepareForCommit(containerInfo) { },
 
-  resetAfterCommit(containerInfo) {},
+  resetAfterCommit(containerInfo) { },
 
   createInstance(
     type,
@@ -55,7 +57,7 @@ const hostConfig = {
     hostContext
   ) {
     switch (type) {
-      case "BUTTON":
+      case Button:
         if (props.onClick) {
           if (
             hostNode.__root &&
@@ -77,30 +79,29 @@ const hostConfig = {
           }
         }
         return;
-      case "DATEPICKER":
-        case "BUTTON":
-          if (props.onChange) {
-            if (
-              hostNode.__root &&
-              hostNode.__root.handlerRegistry &&
-              hostNode.__actionId
-            ) {
-              delete hostNode.__root.handlerRegistry[hostNode.__actionId];
-              hostNode.__root.unsubscribeFromAction(hostNode.__actionId);
-            }
-            hostNode.__actionId = uuid();
-
-            hostNode.onChange = props.onChange;
-
-
-            hostNode.__root.handlerRegistry[hostNode.__actionId] =
-              hostNode.onChange;
-
-            if (hostNode.__root) {
-              hostNode.__root.subscribeToNewActionId(hostNode.__actionId);
-            }
+      case DatePicker:
+        if (props.onChange) {
+          if (
+            hostNode.__root &&
+            hostNode.__root.handlerRegistry &&
+            hostNode.__actionId
+          ) {
+            delete hostNode.__root.handlerRegistry[hostNode.__actionId];
+            hostNode.__root.unsubscribeFromAction(hostNode.__actionId);
           }
-          return;
+          hostNode.__actionId = uuid();
+
+          hostNode.onChange = props.onChange;
+
+
+          hostNode.__root.handlerRegistry[hostNode.__actionId] =
+            hostNode.onChange;
+
+          if (hostNode.__root) {
+            hostNode.__root.subscribeToNewActionId(hostNode.__actionId);
+          }
+        }
+        return;
       default:
         return;
     }
@@ -124,7 +125,6 @@ const hostConfig = {
         key !== "children" && // text children are already handled
         oldProps[key] !== newProps[key]
       ) {
-        console.log(key);
         payload.push({ [key]: newProps[key] });
       }
     }
@@ -151,7 +151,6 @@ const hostConfig = {
   supportsMutation: true,
 
   commitMount(domElement, type, newProps, internalInstanceHandle) {
-    console.log("commit mount");
   },
 
   commitUpdate(
@@ -163,11 +162,10 @@ const hostConfig = {
     internalInstanceHandle
   ) {
     switch (type) {
-      case "BUTTON":
+      case Button:
         updatePayload.forEach(update => {
           Object.keys(update).forEach(key => {
             if (key === "onClick") {
-              console.log(hostNode);
               if (hostNode.__root && hostNode.__root.handlerRegistry) {
                 delete hostNode.__root.handlerRegistry[hostNode.__actionId];
                 hostNode.__root.unsubscribeFromAction(hostNode.__actionId);
@@ -187,7 +185,7 @@ const hostConfig = {
           });
         });
         break;
-      case "DATEPICKER":
+      case DatePicker:
         updatePayload.forEach(update => {
           Object.keys(update).forEach(key => {
             if (key === "onChange") {
@@ -221,7 +219,7 @@ const hostConfig = {
   },
 
   resetTextContent(domElement) {
-    console.log(domElement);
+    throw new Error('Not implemented');
   },
 
   commitTextUpdate(textInstance, oldText, newText) {
@@ -240,8 +238,6 @@ const hostConfig = {
   },
 
   insertBefore(parentInstance, child, beforeChild) {
-    console.log("insert before");
-    console.log("insertBefore");
   },
 
   insertInContainerBefore(container, child, beforeChild) {
@@ -259,7 +255,7 @@ const hostConfig = {
 
 const reconciler = ReactReconciler(hostConfig);
 
-let JsonDOM = {
+const SlackDOM = {
   render(component, container) {
     let reconcilerContainer = reconciler.createContainer(
       container,
@@ -272,4 +268,4 @@ let JsonDOM = {
   }
 };
 
-export default JsonDOM;
+export default SlackDOM;

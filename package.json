@@ -1,33 +1,26 @@
 {
-  "name": "slack-renderer",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "dependencies": {
-    "@apollo/client": "^3.0.0-beta.37",
-    "@babel/preset-react": "^7.8.3",
-    "@slack/web-api": "^5.7.0",
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "formik": "^2.1.4",
-    "graphql": "^14.6.0",
-    "lodash": "latest",
-    "node-fetch": "^2.6.0",
-    "react": "^16.12.0",
-    "react-reconciler": "^0.24.0",
-    "react-router": "^5.1.2",
-    "react-use": "^13.26.1",
-    "redis": "^3.0.2",
-    "uuid": "^3.4.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "parcel": "^1.12.4",
-    "react-devtools": "^4.4.0"
-  },
-  "scripts": {
-    "start": "parcel --target node app.js"
-  }
+    "name": "slack-renderer",
+    "version": "1.0.0",
+    "main": "app.js",
+    "license": "MIT",
+    "dependencies": {
+        "lodash": "4.17.15",
+        "react": "^16.12.0",
+        "react-reconciler": "^0.24.0",
+        "uuid": "^3.4.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.0.0-0",
+        "@babel/plugin-proposal-export-default-from": "^7.8.3",
+        "@babel/preset-react": "^7.8.3",
+        "babel-plugin-transform-class-properties": "^6.24.1",
+        "parcel": "^1.12.4",
+        "react-devtools": "^4.4.0"
+    },
+    "scripts": {
+        "start:node": "parcel --target node app.js",
+        "build": "yarn build:node && yarn build:browser",
+        "build:node": "parcel build -d build/node --target node app.js",
+        "build:browser": "parcel build -d build/browser --target browser app.js"
+    }
 }
