@@ -14,13 +14,15 @@
         "@babel/plugin-proposal-export-default-from": "^7.8.3",
         "@babel/preset-react": "^7.8.3",
         "babel-plugin-transform-class-properties": "^6.24.1",
+        "microbundle": "^0.11.0",
         "parcel": "^1.12.4",
         "react-devtools": "^4.4.0"
     },
     "scripts": {
+        "start:browser": "parcel index.html",
         "start:node": "parcel --target node app.js",
         "build": "yarn build:node && yarn build:browser",
         "build:node": "parcel build -d build/node --target node app.js",
-        "build:browser": "parcel build -d build/browser --target browser app.js"
+        "build:browser": "microbundle build -d build/browser --target browser app.js"
     }
 }

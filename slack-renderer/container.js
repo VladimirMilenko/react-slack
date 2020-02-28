@@ -1,4 +1,3 @@
-import EventEmitter from "events";
 import _ from 'lodash';
 
 export class SlackContainer {
