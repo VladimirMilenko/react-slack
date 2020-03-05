@@ -4,6 +4,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { Client as Styletron } from 'styletron-engine-atomic';
 import { Provider as StyletronProvider } from 'styletron-react';
 import { LightTheme, BaseProvider, styled } from 'baseui';
+import { Block } from 'baseui/block';
 import { LayersManager } from 'baseui/layer';
 import {
   Checkbox,
@@ -67,7 +68,9 @@ const SendModal = ({ channels, onSend }) => {
           >
             Add to queue
         </Checkbox>
-          <Select value={channel} options={channels} onChange={(e) => setChannel(e.value)} />
+          <Block marginTop="scale800">
+            <Select value={channel} options={channels} onChange={(e) => setChannel(e.value)} />
+          </Block>
         </ModalBody>
         <ModalFooter>
           <ModalButton onClick={() => {

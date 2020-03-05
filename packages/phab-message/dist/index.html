@@ -2,5 +2,13 @@
   <head></head>
   <body>
     <script src="/phab-message.e31bb0bc.js"></script>
+    <script>window.__installHook([{
+  id: "test",
+  label: "test"
+}], function (message, channel) {
+  console.log(JSON.stringify({
+    message: message
+  }, null, 2));
+});</script>
   </body>
 </html>
