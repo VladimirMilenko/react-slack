@@ -1,6 +1,6 @@
 import { Child, Root } from './SlackBase';
 import { Text } from './Text';
-import { getFakeRoot } from 'utils';
+import { getFakeRoot } from '../utils';
 
 type ButtonChildren = Text;
 type ButtonStyle = 'primary' | 'danger' | undefined;
@@ -9,7 +9,7 @@ export interface ButtonProps {
   style?: ButtonStyle;
   onClick?: (event: Object) => void;
   value?: string;
-};
+}
 
 export class Button extends Child {
   children: Array<ButtonChildren>;

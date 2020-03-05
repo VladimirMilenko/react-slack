@@ -3,18 +3,17 @@
   "rushVersion": "5.20.0",
   "yarnVersion": "1.9.4",
 
-  "nodeSupportedVersionRange": ">=10.13.0 <11.0.0",
+  "nodeSupportedVersionRange": ">=10.13.0",
 
-  "gitPolicy": {
-  },
+  "gitPolicy": {},
   "projects": [
-      {
-        "packageName": "@slack-react/phab-message",
-        "projectFolder": "packages/phab-message"
-      },
-      {
-        "packageName": "@slack-react/host",
-        "projectFolder": "packages/host"
-      }
+    {
+      "packageName": "@slack-react/phab-message",
+      "projectFolder": "packages/phab-message"
+    },
+    {
+      "packageName": "@slack-react/host",
+      "projectFolder": "packages/host"
+    }
   ]
 }

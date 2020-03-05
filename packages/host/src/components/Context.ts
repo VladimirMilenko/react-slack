@@ -1,7 +1,7 @@
 import { Child, Root } from './SlackBase';
 import { Text } from './Text';
 import { Markdown } from './Markdown';
-import { getFakeRoot } from 'utils';
+import { getFakeRoot } from '../utils';
 
 type ContextChildren = Text | Markdown;
 

@@ -1,6 +1,6 @@
 import { Child, Root } from './SlackBase';
 import { Text } from './Text';
-import { getFakeRoot } from 'utils';
+import { getFakeRoot } from '../utils';
 
 export type DatePickerProps = {
   value?: string;
