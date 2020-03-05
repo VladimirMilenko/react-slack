@@ -6,10 +6,17 @@
   "author": "Vladimir Milenko",
   "license": "MIT",
   "scripts": {
-    "build": "exit 0"
+    "build": "parcel build index.js"
   },
   "dependencies": {
+    "parcel": "1.12.4",
+    "react-keyboard-event-handler": "^1.5.4",
+    "react-use": "^13.27.0",
     "react": "16.13.0",
-    "@slack-react/host": "0.1.0"
+    "react-dom": "16.13.0",
+    "@slack-react/host": "0.1.0",
+    "styletron-react": "^5.2.7",
+    "styletron-engine-atomic": "1.4.6",
+    "baseui": "^9.61.0"
   }
 }
