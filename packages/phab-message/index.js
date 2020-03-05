@@ -16,12 +16,21 @@ import { toaster, ToasterContainer } from 'baseui/toast';
 import { ObjectSlackContainer, Button, Section, SectionFields, SlackDOM } from '@slack-react/host';
 import { getReviewers, getAuthor, getJiraIssues, getStatus, getDiffId, getDiffTitle } from './utils';
 import { DiffMessage } from './src/components/Message';
+import { QueueAdd } from './src/components/QueueAdd';
 import { Text } from '@slack-react/host/src/components/Text';
 
 const rootNode = document.createElement('div');
 document.body.appendChild(rootNode);
 
 const engine = new Styletron({ container: rootNode });
+
+function createQueueAdd(props) {
+  const container = new ObjectSlackContainer();
+
+  SlackDOM.render(<QueueAdd {...props} />, container);
+
+  return container.render();
+}
 
 function createMessage(props) {
   const container = new ObjectSlackContainer();
@@ -77,15 +86,9 @@ const SendModal = ({ channels, onSend }) => {
             const message = getDiffForSlack();
             if (addToQueue) {
               const diffId = getDiffId();
-              onSend({
-                blocks: [{
-                  "type": "section",
-                  "text": {
-                    "type": "plain_text",
-                    "text": `!wadd ${diffId}`
-                  }
-                }]
-              }, channel[0])
+              const queueMessage = createQueueAdd({ diffId });
+
+              onSend({ blocks: queueMessage }, channel[0])
             }
             onSend({ blocks: message }, channel[0]);
             toaster.positive('sent');
