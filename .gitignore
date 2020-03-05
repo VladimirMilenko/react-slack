@@ -66,7 +66,6 @@ common/temp/
 .DS_Store
 node_modules
 .cache
-dist
 
 **/.cache
 **/node_modules/
