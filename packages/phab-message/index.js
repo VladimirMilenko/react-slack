@@ -86,9 +86,7 @@ const SendModal = ({ channels, onSend }) => {
             const message = getDiffForSlack();
             if (addToQueue) {
               const diffId = getDiffId();
-              const queueMessage = createQueueAdd({ diffId });
-
-              onSend({ blocks: queueMessage }, channel[0])
+              onSend({ text: '!wadd ' + diffId }, channel[0])
             }
             onSend({ blocks: message }, channel[0]);
             toaster.positive('sent');
