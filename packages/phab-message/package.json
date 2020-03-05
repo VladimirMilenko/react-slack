@@ -1,0 +1,15 @@
+{
+  "name": "@slack-react/phab-message",
+  "version": "0.0.1",
+  "description": "Phab message",
+  "main": "index.js",
+  "author": "Vladimir Milenko",
+  "license": "MIT",
+  "scripts": {
+    "build": "exit 0"
+  },
+  "dependencies": {
+    "react": "16.13.0",
+    "@slack-react/host": "0.1.0"
+  }
+}
