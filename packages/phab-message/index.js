@@ -4,16 +4,23 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { Client as Styletron } from 'styletron-engine-atomic';
 import { Provider as StyletronProvider } from 'styletron-react';
 import { LightTheme, BaseProvider, styled } from 'baseui';
-import { StatefulInput } from 'baseui/input';
+import { LayersManager } from 'baseui/layer';
+import {
+  Checkbox,
+  LABEL_PLACEMENT
+} from "baseui/checkbox";
 import { Select } from 'baseui/select';
 import { Modal, ModalButton, ModalHeader, ModalBody, ModalFooter, SIZE, ROLE } from 'baseui/modal';
 import { toaster, ToasterContainer } from 'baseui/toast';
 import { ObjectSlackContainer, Button, Section, SectionFields, SlackDOM } from '@slack-react/host';
 import { getReviewers, getAuthor, getJiraIssues, getStatus, getDiffId, getDiffTitle } from './utils';
 import { DiffMessage } from './src/components/Message';
+import { Text } from '@slack-react/host/src/components/Text';
 
+const rootNode = document.createElement('div');
+document.body.appendChild(rootNode);
 
-const engine = new Styletron();
+const engine = new Styletron({ container: rootNode });
 
 function createMessage(props) {
   const container = new ObjectSlackContainer();
@@ -37,6 +44,7 @@ function getDiffForSlack() {
 const SendModal = ({ channels, onSend }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [channel, setChannel] = React.useState([channels[0]]);
+  const [addToQueue, setAddToQueue] = React.useState(true);
 
   React.useEffect(() => {
     toaster.positive('Slack messenger attached', { autoHideDuration: 5000 });
@@ -52,12 +60,22 @@ const SendModal = ({ channels, onSend }) => {
       >
         <ModalHeader>Send to slack</ModalHeader>
         <ModalBody>
-          I will send the into to slack channel:
+          <Checkbox
+            checked={addToQueue}
+            onChange={e => setAddToQueue(e.target.checked)}
+            labelPlacement={LABEL_PLACEMENT.right}
+          >
+            Add to queue
+        </Checkbox>
           <Select value={channel} options={channels} onChange={(e) => setChannel(e.value)} />
         </ModalBody>
         <ModalFooter>
           <ModalButton onClick={() => {
             const message = getDiffForSlack();
+            if (addToQueue) {
+              const diffId = getDiffId();
+              onSend({ blocks: [{ type: 'plain_text', text: `!wadd ${diffId}` }] })
+            }
             onSend({ blocks: message }, channel[0]);
             toaster.positive('sent');
             setIsOpen(false);
@@ -72,15 +90,14 @@ const SendModal = ({ channels, onSend }) => {
 const InjectApp = ({ channels, onSend }) => (
   <StyletronProvider value={engine}>
     <BaseProvider theme={LightTheme}>
-      <ToasterContainer placement="topRight">
-        <SendModal channels={channels} onSend={onSend} />
-      </ToasterContainer>
+      <LayersManager zIndex={10000}>
+        <ToasterContainer placement="topRight">
+          <SendModal channels={channels} onSend={onSend} />
+        </ToasterContainer>
+      </LayersManager>
     </BaseProvider>
   </StyletronProvider>
 )
-
-const rootNode = document.createElement('div');
-document.body.appendChild(rootNode);
 
 
 window.__installHook = (channels, onSend) => {

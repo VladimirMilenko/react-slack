@@ -38,5 +38,5 @@ export const getStatus = () => {
 }
 
 export const getDiffId = () => {
-  return diffId = document.querySelectorAll('.phui-crumb-name')[1].innerText;
+  return document.querySelectorAll('.phui-crumb-name')[1].innerText;
 }
