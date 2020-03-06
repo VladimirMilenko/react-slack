@@ -30,7 +30,7 @@ const SendModal = ({ channels, fetch }) => {
         size={SIZE.default}
         role={ROLE.dialog}
       >
-        <ModalHeader>Mark diff as done</ModalHeader>
+        <ModalHeader>Bounce diff back</ModalHeader>
         <ModalBody>
           <Block marginTop="scale800">
             <Select
@@ -44,7 +44,7 @@ const SendModal = ({ channels, fetch }) => {
           <ModalButton
             onClick={() => {
               const diffId = getDiffId();
-              fetch(channel[0], { text: "!wdone " + diffId });
+              fetch(channel[0], { text: "!wbounce " + diffId });
               toaster.positive("sent");
             }}
           >
@@ -53,7 +53,7 @@ const SendModal = ({ channels, fetch }) => {
         </ModalFooter>
       </Modal>
       <KeyboardEventHandler
-        handleKeys={["ctrl+alt+a"]}
+        handleKeys={["ctrl+alt+z"]}
         onKeyEvent={() => setIsOpen(true)}
       />
     </>

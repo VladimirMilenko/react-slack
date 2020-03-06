@@ -49,7 +49,7 @@ const SendModal = ({ channels, fetch }) => {
         size={SIZE.default}
         role={ROLE.dialog}
       >
-        <ModalHeader>Send to slack</ModalHeader>
+        <ModalHeader>Add diff to queue</ModalHeader>
         <ModalBody>
           <Checkbox
             checked={addToQueue}
@@ -76,7 +76,7 @@ const SendModal = ({ channels, fetch }) => {
           }}>Send</ModalButton>
         </ModalFooter>
       </Modal >
-      <KeyboardEventHandler handleKeys={['ctrl+alt+z']} onKeyEvent={() => setIsOpen(true)} />
+      <KeyboardEventHandler handleKeys={['ctrl+alt+c']} onKeyEvent={() => setIsOpen(true)} />
     </>
   )
 };
