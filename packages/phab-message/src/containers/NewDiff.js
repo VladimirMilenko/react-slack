@@ -64,12 +64,11 @@ const SendModal = ({ channels, fetch }) => {
         </ModalBody>
         <ModalFooter>
           <ModalButton onClick={() => {
-            const message = getDiffForSlack();
             if (addToQueue) {
               const diffId = getDiffId();
               fetch(channel[0], {text: '!wadd ' + diffId});
             }
-            fetch(channel[0], {blocks: messsage});
+            fetch(channel[0], {blocks: getDiffForSlack()});
 
             toaster.positive('sent', {autoHideDuration: 5000});
             setIsOpen(false);

@@ -1,0 +1,28 @@
+{
+  "name": "@slack-react/example-interactive",
+  "version": "0.0.1",
+  "description": "Phab message",
+  "main": "index.js",
+  "author": "Vladimir Milenko",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel --target node index.js",
+    "watch": "nodemon dist/index.js",
+    "build": "parcel build index.js"
+  },
+  "dependencies": {
+    "parcel": "1.12.4",
+    "react-use": "^13.27.0",
+    "react": "16.13.0",
+    "@slack-react/host": "0.1.0",
+    "@slack/web-api": "^5.8.0",
+    "cors": "2.8.5",
+    "body-parser": "^1.19.0",
+    "node-fetch": "2.6.0",
+    "redis": "3.0.2",
+    "express": "4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.2"
+  }
+}
