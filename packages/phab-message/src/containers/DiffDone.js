@@ -46,6 +46,8 @@ const SendModal = ({ channels, fetch }) => {
               const diffId = getDiffId();
               fetch(channel[0], { text: "!wdone " + diffId });
               toaster.positive("sent");
+              setIsOpen(false);
+
             }}
           >
             Send

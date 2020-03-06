@@ -15,7 +15,7 @@ const InjectApp = ({ channels, fetch }) => (
   <StyletronProvider value={engine}>
     <BaseProvider theme={LightTheme}>
       <LayersManager zIndex={10000}>
-        <ToasterContainer placement="topRight">
+        <ToasterContainer overrides={{Root:{style:{zIndex: 10000}}}} placement="topRight">
           <NewDiff channels={channels} fetch={fetch} />
           <DiffDone channels={channels} fetch={fetch} />
           <DiffBounce channels={channels} fetch={fetch} />
