@@ -38,7 +38,7 @@ const SendModal = ({ channels, fetch }) => {
   const [addToQueue, setAddToQueue] = React.useState(true);
 
   React.useEffect(() => {
-    toaster.positive('Slack messenger attached', { autoHideDuration: 500000 });
+    toaster.positive('Slack messenger attached', { autoHideDuration: 5000 });
   }, []);
   return (
     <>
@@ -71,7 +71,7 @@ const SendModal = ({ channels, fetch }) => {
             }
             fetch(channel[0], {blocks: messsage});
 
-            toaster.positive('sent');
+            toaster.positive('sent', {autoHideDuration: 5000});
             setIsOpen(false);
           }}>Send</ModalButton>
         </ModalFooter>
